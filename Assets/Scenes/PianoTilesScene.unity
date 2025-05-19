@@ -1547,7 +1547,7 @@ MonoBehaviour:
   _moveSpeed: 0.02
   _startPosition: {fileID: 589578418}
   useEndPositionTransform: 0
-  _endPositionVector: {x: 0, y: 0, z: -4.2}
+  _endPositionVector: {x: 0, y: 0, z: -6.2}
   _endPositionTransform: {fileID: 0}
   _distToTargetPosThreshold: 0.2
   _restartWhenTargetPosReached: 1
@@ -2291,7 +2291,7 @@ MonoBehaviour:
   _moveSpeed: 0.02
   _startPosition: {fileID: 589578418}
   useEndPositionTransform: 0
-  _endPositionVector: {x: 0, y: 0, z: -4.2}
+  _endPositionVector: {x: 0, y: 0, z: -6.2}
   _endPositionTransform: {fileID: 0}
   _distToTargetPosThreshold: 0.2
   _restartWhenTargetPosReached: 1
@@ -2771,7 +2771,7 @@ MonoBehaviour:
   _moveSpeed: 0.02
   _startPosition: {fileID: 589578418}
   useEndPositionTransform: 0
-  _endPositionVector: {x: 0, y: 0, z: -4.2}
+  _endPositionVector: {x: 0, y: 0, z: -6.2}
   _endPositionTransform: {fileID: 0}
   _distToTargetPosThreshold: 0.2
   _restartWhenTargetPosReached: 1
@@ -3234,7 +3234,7 @@ MonoBehaviour:
   _moveSpeed: 0.02
   _startPosition: {fileID: 589578418}
   useEndPositionTransform: 0
-  _endPositionVector: {x: 0, y: 0, z: -4.2}
+  _endPositionVector: {x: 0, y: 0, z: -6.2}
   _endPositionTransform: {fileID: 0}
   _distToTargetPosThreshold: 0.2
   _restartWhenTargetPosReached: 1
@@ -4827,7 +4827,7 @@ MonoBehaviour:
   _moveSpeed: 0.02
   _startPosition: {fileID: 589578418}
   useEndPositionTransform: 0
-  _endPositionVector: {x: 0, y: 0, z: -4.2}
+  _endPositionVector: {x: 0, y: 0, z: -6.2}
   _endPositionTransform: {fileID: 0}
   _distToTargetPosThreshold: 0.2
   _restartWhenTargetPosReached: 1
@@ -5566,7 +5566,7 @@ MonoBehaviour:
   _moveSpeed: 0.02
   _startPosition: {fileID: 589578418}
   useEndPositionTransform: 0
-  _endPositionVector: {x: 0, y: 0, z: -4.2}
+  _endPositionVector: {x: 0, y: 0, z: -6.2}
   _endPositionTransform: {fileID: 0}
   _distToTargetPosThreshold: 0.2
   _restartWhenTargetPosReached: 1

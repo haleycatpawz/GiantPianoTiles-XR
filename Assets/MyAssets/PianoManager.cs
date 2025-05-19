@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PianoManager : MonoBehaviour
 {
@@ -17,13 +18,13 @@ public class PianoManager : MonoBehaviour
         black = 1,
     }
 
-
+    /*
     public void SetAllTiles()
     {
         var childCount = pianoTilesSet.transform.childCount;
         for (int i = 0; i < childCount; i++)
         {
-            GameObject previousTileSet = transform.gameObject; // if there is previous set, get previous
+            GameObject previousTileSet = null; // if there is previous set, get previous
             if (i >= 1)
             {
                 previousTileSet = pianoTilesSet.transform.GetChild(i - 1).gameObject;
@@ -35,16 +36,57 @@ public class PianoManager : MonoBehaviour
                 previousTileSet = pianoTilesSet.transform.GetChild(childCount - 1).gameObject;
               //  Debug.Log("else if = " + previousTileSet.name);
             }
+            else
+            {
+                previousTileSet = pianoTilesSet.transform.GetChild(childCount - 1).gameObject;
+              //  Debug.Log("else if = " + previousTileSet.name);
+            }
             
             var tileSet = pianoTilesSet.transform.GetChild(i).gameObject;
     
             if (tileSet != null)
             {
+          //      Debug.Log(i);
                 SetTilesSet(tileSet, previousTileSet);
-                Debug.Log("tile set " + tileSet.name + " prev tile set " + previousTileSet.name);
+         //       Debug.Log("tile set " + tileSet.name + " prev tile set " + previousTileSet.name);
             }
         }
     }
+    */
+
+    public void SetAllTiles()
+    {
+        var childCount = pianoTilesSet.transform.childCount;
+
+        for (int i = 0; i < childCount; i++)
+        {
+            GameObject previousTileSet = null;
+
+            if (childCount > 0)
+            {
+                if (i > 0)
+                {
+                    previousTileSet = pianoTilesSet.transform.GetChild(i - 1).gameObject;
+                }
+                else // i == 0
+                {
+                    previousTileSet = pianoTilesSet.transform.GetChild(childCount - 1).gameObject;
+                }
+
+                GameObject currentTileSet = pianoTilesSet.transform.GetChild(i).gameObject;
+
+                if (currentTileSet != null)
+                {
+                    SetTilesSet(currentTileSet, previousTileSet);
+                    if(i== 0)
+                    {
+                        Debug.Log("set section 1" + currentTileSet.name);
+                    }
+                }
+            }
+        }
+    }
+
 
     public void SetTilesSet(GameObject thisTileSet, GameObject previousTileSet)
     {
@@ -56,9 +98,10 @@ public class PianoManager : MonoBehaviour
 
         thisTileSet.GetComponent<TileSet>().blackTileIndexNum = thisBlackTileIndex;
 
-        Debug.Log(thisBlackTileIndex);
+        //  Debug.Log(thisBlackTileIndex);
 
-
+      //  if("pianoTilesSet1" == thisTileSet.name) Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
+     
         for (int j = 0; j < childrenInTileSet; j++)
         {
             GameObject tile = thisTileSet.transform.GetChild(j).gameObject;
@@ -66,14 +109,16 @@ public class PianoManager : MonoBehaviour
             if (j == thisBlackTileIndex)
             {
                 setTileColor(tile, tileColor.black);
+                if (thisTileSet.name == "pianoTilesSet1")  Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
+
             }
             else
             {
                 setTileColor(tile, tileColor.white);
             }
 
-
-        //    Debug.Log(tile.name);
+      //      Debug.Log(j + tile.name);
+          //  if (tile.name == "pianoTilesSet1")  Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
         }
     }
 
@@ -92,6 +137,25 @@ public class PianoManager : MonoBehaviour
             return Random.Range(minIndex, maxIndex + 1);
         }
     }
+
+    public void setTileColor(GameObject tile, tileColor color)
+    {
+        var pianoTileComponent = tile.GetComponent<PianoTile>();
+        pianoTileComponent.pianoTileColor = color;
+
+        var tileMeshRenderer = tile.GetComponent<MeshRenderer>();
+
+        // if this tile's color is white set white, if black set black
+        if (color == tileColor.white)
+        {
+            tileMeshRenderer.material = whiteMat;
+        }
+        if (color == tileColor.black)
+        {
+            tileMeshRenderer.material = blackMat;
+        }
+    }
+
 
     /*
     private int generateIndexNearPrevIndex(int previousSetIndex, int maxRange)
@@ -115,25 +179,6 @@ public class PianoManager : MonoBehaviour
 
     }
     */
-    public void setTileColor(GameObject tile, tileColor color)
-    {
-        var pianoTileComponent = tile.GetComponent<PianoTile>();
-        pianoTileComponent.pianoTileColor = color;
-
-        var tileMeshRenderer = tile.GetComponent<MeshRenderer>();
-
-        // if this tile's color is white set white, if black set black
-        if (color == tileColor.white)
-        {
-            tileMeshRenderer.material = whiteMat;
-        }
-        if (color == tileColor.black)
-        {
-            tileMeshRenderer.material = blackMat;
-        }
-    }
-
-
 
     // Start is called before the first frame update
     void Start()
