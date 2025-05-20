@@ -5,6 +5,7 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(AudioSource))]
 public class PianoManager : MonoBehaviour
 {
     [SerializeField] public Material whiteMat;
