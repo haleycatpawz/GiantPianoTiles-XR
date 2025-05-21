@@ -5,8 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using static UnityEditor.VersionControl.Message;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
+//using static UnityEditor.VersionControl.Message;
+//using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class HandTeleportationManager : MonoBehaviour
 {
@@ -46,7 +46,7 @@ public class HandTeleportationManager : MonoBehaviour
             }
             else
             {
-                UnityEngine.Debug.LogError("Error: Selected interactable is not an XRBaseInteractable.", interactable as UnityEngine.Object);
+            //    UnityEngine.Debug.LogError("Error: Selected interactable is not an XRBaseInteractable.", interactable as UnityEngine.Object);
             }
         }
     }
