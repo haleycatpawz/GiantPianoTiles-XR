@@ -200,6 +200,7 @@ MonoBehaviour:
   pianoManager: {fileID: 0}
   gameManager: {fileID: 0}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -332,9 +333,9 @@ MonoBehaviour:
   _moveSpeed: 0.02
   _startPosition: {fileID: 589578418}
   useEndPositionTransform: 0
-  _endPositionVector: {x: 0, y: 0, z: -6.2}
+  _endPositionVector: {x: 0, y: 0, z: -6}
   _endPositionTransform: {fileID: 0}
-  _distToTargetPosThreshold: 1
+  _distToTargetPosThreshold: 0.2
   _restartTileSetWhenEndPosReached: 1
 --- !u!82 &98583226
 AudioSource:
@@ -620,8 +621,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -730,7 +732,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 2}
+  m_LocalScale: {x: 0.95, y: 0.2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 998877557}
@@ -750,7 +752,8 @@ MonoBehaviour:
   pianoManager: {fileID: 98583225}
   gameManager: {fileID: 1231643414}
   pianoTileColor: 1
-  transitionDuration: 0.1
+  tileIsTriggered: 0
+  transitionDuration: 0.05
   startColor: {r: 1, g: 1, b: 1, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
   endColorWrong: {r: 1, g: 0, b: 0, a: 1}
@@ -963,8 +966,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -1091,8 +1095,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -1219,8 +1224,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -1329,7 +1335,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 2}
+  m_LocalScale: {x: 0.95, y: 0.2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 998877557}
@@ -1349,7 +1355,8 @@ MonoBehaviour:
   pianoManager: {fileID: 98583225}
   gameManager: {fileID: 1231643414}
   pianoTileColor: 1
-  transitionDuration: 0.1
+  tileIsTriggered: 0
+  transitionDuration: 0.05
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
   endColorWrong: {r: 1, g: 0, b: 0, a: 1}
@@ -1427,6 +1434,116 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230929482}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &258212050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 258212051}
+  - component: {fileID: 258212054}
+  - component: {fileID: 258212053}
+  - component: {fileID: 258212052}
+  m_Layer: 0
+  m_Name: Capsule (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &258212051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258212050}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.01, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532877033}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &258212052
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258212050}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &258212053
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258212050}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a1c5aa7ac4d8225428a86af7ee75a217, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &258212054
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258212050}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,8 +1713,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -1704,7 +1822,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.13587838, z: -7.4396462}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 821945176}
@@ -1720,7 +1838,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426500018}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73b9040153b6f5949bb69acd51214049, type: 3}
   m_Name: 
@@ -2010,8 +2128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -2195,6 +2314,7 @@ MonoBehaviour:
   pianoManager: {fileID: 0}
   gameManager: {fileID: 0}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -2321,8 +2441,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -2483,8 +2604,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -3246,7 +3368,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.13587838, z: -1.4396462}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 219000762}
@@ -3262,7 +3384,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 817150454}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73b9040153b6f5949bb69acd51214049, type: 3}
   m_Name: 
@@ -3338,8 +3460,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -3810,7 +3933,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 2}
+  m_LocalScale: {x: 0.95, y: 0.2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 998877557}
@@ -3830,7 +3953,8 @@ MonoBehaviour:
   pianoManager: {fileID: 98583225}
   gameManager: {fileID: 1231643414}
   pianoTileColor: 1
-  transitionDuration: 0.1
+  tileIsTriggered: 0
+  transitionDuration: 0.05
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
   endColorWrong: {r: 1, g: 0, b: 0, a: 1}
@@ -3958,6 +4082,7 @@ MonoBehaviour:
   pianoManager: {fileID: 0}
   gameManager: {fileID: 0}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -4063,14 +4188,15 @@ Transform:
   m_GameObject: {fileID: 998877556}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 6}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2129475071}
   - {fileID: 230929483}
   - {fileID: 139935682}
   - {fileID: 949198120}
+  - {fileID: 2028606258}
   m_Father: {fileID: 1753787007}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &998877558
@@ -4156,8 +4282,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -4284,8 +4411,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -4414,6 +4542,7 @@ MonoBehaviour:
   pianoManager: {fileID: 0}
   gameManager: {fileID: 0}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -4726,7 +4855,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.13587838, z: 0.56035376}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1418280988}
@@ -4742,7 +4871,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250394789}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73b9040153b6f5949bb69acd51214049, type: 3}
   m_Name: 
@@ -4770,6 +4899,116 @@ MonoBehaviour:
   blackTileIndexNum: 0
   prevTileSet: {fileID: 817150454}
   correctTileTriggered: 0
+--- !u!1 &1294806918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1294806919}
+  - component: {fileID: 1294806922}
+  - component: {fileID: 1294806921}
+  - component: {fileID: 1294806920}
+  m_Layer: 0
+  m_Name: Capsule (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1294806919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294806918}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.01, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532877033}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1294806920
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294806918}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1294806921
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294806918}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1294806922
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294806918}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1330552880
 GameObject:
   m_ObjectHideFlags: 0
@@ -4818,8 +5057,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -4946,8 +5186,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -5076,6 +5317,7 @@ MonoBehaviour:
   pianoManager: {fileID: 0}
   gameManager: {fileID: 0}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -5202,8 +5444,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -5330,8 +5573,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -5458,8 +5702,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -5588,6 +5833,7 @@ MonoBehaviour:
   pianoManager: {fileID: 0}
   gameManager: {fileID: 0}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -5677,12 +5923,12 @@ GameObject:
   - component: {fileID: 1465228760}
   - component: {fileID: 1465228761}
   m_Layer: 0
-  m_Name: GameObject (4)
+  m_Name: End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1465228760
 Transform:
   m_ObjectHideFlags: 0
@@ -5692,10 +5938,11 @@ Transform:
   m_GameObject: {fileID: 1465228759}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -6}
+  m_LocalScale: {x: 1, y: 1, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1532877033}
   - {fileID: 956971278}
   - {fileID: 1909210841}
   - {fileID: 74476090}
@@ -5721,6 +5968,116 @@ MonoBehaviour:
   _endPositionTransform: {fileID: 0}
   _distToTargetPosThreshold: 0.2
   _restartWhenTargetPosReached: 0
+--- !u!1 &1470622599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470622600}
+  - component: {fileID: 1470622603}
+  - component: {fileID: 1470622602}
+  - component: {fileID: 1470622601}
+  m_Layer: 0
+  m_Name: Capsule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470622600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470622599}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.01, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532877033}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1470622601
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470622599}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1470622602
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470622599}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 390c2448d25ae79439fa3bb173f70050, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1470622603
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470622599}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1479755522
 GameObject:
   m_ObjectHideFlags: 0
@@ -5769,8 +6126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -5849,6 +6207,42 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479755522}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1532877032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1532877033}
+  m_Layer: 0
+  m_Name: Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1532877033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532877032}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 25}
+  m_LocalScale: {x: 1, y: 1, z: 20}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1470622600}
+  - {fileID: 1943186277}
+  - {fileID: 2027248745}
+  - {fileID: 258212051}
+  - {fileID: 1294806919}
+  m_Father: {fileID: 1465228760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545411580
 GameObject:
   m_ObjectHideFlags: 0
@@ -6156,8 +6550,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -6264,7 +6659,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.13587838, z: -5.4396462}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1410695464}
@@ -6280,7 +6675,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716397877}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73b9040153b6f5949bb69acd51214049, type: 3}
   m_Name: 
@@ -6788,6 +7183,7 @@ MonoBehaviour:
   pianoManager: {fileID: 0}
   gameManager: {fileID: 0}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -6866,6 +7262,226 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1909210840}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1943186276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943186277}
+  - component: {fileID: 1943186280}
+  - component: {fileID: 1943186279}
+  - component: {fileID: 1943186278}
+  m_Layer: 0
+  m_Name: Capsule (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1943186277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943186276}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.01, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532877033}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1943186278
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943186276}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1943186279
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943186276}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3bf55ea4ef8fafb4d9c06a85dc4c0cbd, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1943186280
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943186276}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2027248744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027248745}
+  - component: {fileID: 2027248748}
+  - component: {fileID: 2027248747}
+  - component: {fileID: 2027248746}
+  m_Layer: 0
+  m_Name: Capsule (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2027248745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027248744}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.01, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532877033}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2027248746
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027248744}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2027248747
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027248744}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: bdbc2dd76e9cf7d4a92b18f1a749cb3e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2027248748
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027248744}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2028132969
 GameObject:
   m_ObjectHideFlags: 0
@@ -6916,6 +7532,7 @@ MonoBehaviour:
   pianoManager: {fileID: 0}
   gameManager: {fileID: 0}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -6994,6 +7611,135 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028132969}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2028606257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2028606258}
+  - component: {fileID: 2028606262}
+  - component: {fileID: 2028606261}
+  - component: {fileID: 2028606260}
+  - component: {fileID: 2028606259}
+  m_Layer: 0
+  m_Name: tile (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2028606258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028606257}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalScale: {x: 0.95, y: 0.2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 998877557}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2028606259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028606257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcee76ce5cdef974aa87d581913bf247, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pianoManager: {fileID: 98583225}
+  gameManager: {fileID: 1231643414}
+  pianoTileColor: 1
+  tileIsTriggered: 0
+  transitionDuration: 0.05
+  startColor: {r: 1, g: 0, b: 0, a: 1}
+  endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
+  endColorWrong: {r: 1, g: 0, b: 0, a: 1}
+--- !u!65 &2028606260
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028606257}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &2028606261
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028606257}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 65a5db6ea377b4f4c94ba622ba301a76, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2028606262
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028606257}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2040349721
 GameObject:
   m_ObjectHideFlags: 0
@@ -7042,8 +7788,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -7170,8 +7917,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 98583225}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1231643414}
   pianoTileColor: 1
+  tileIsTriggered: 0
   transitionDuration: 2
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
@@ -7313,7 +8061,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: bf5bfe5218ee325448aa890f9008266f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7386,7 +8134,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.13587838, z: -3.4396462}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 136824905}
@@ -7402,7 +8150,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119856114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73b9040153b6f5949bb69acd51214049, type: 3}
   m_Name: 
@@ -7465,7 +8213,8 @@ MonoBehaviour:
   pianoManager: {fileID: 98583225}
   gameManager: {fileID: 1231643414}
   pianoTileColor: 1
-  transitionDuration: 0.1
+  tileIsTriggered: 0
+  transitionDuration: 0.05
   startColor: {r: 1, g: 0, b: 0, a: 1}
   endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
   endColorWrong: {r: 1, g: 0, b: 0, a: 1}
@@ -7553,7 +8302,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 2}
+  m_LocalScale: {x: 0.95, y: 0.2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 998877557}
