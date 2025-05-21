@@ -13,47 +13,25 @@ public class PianoManager : MonoBehaviour
     [SerializeField] public Material triggerMatColor;
 
     [SerializeField] GameObject pianoTilesSet;
+
+    [SerializeField] float _moveSpeed = 1;
+    // [SerializeField] Vector3 _moveDirection;
+    [SerializeField] Transform _startPosition;
+
+    [SerializeField] bool useEndPositionTransform = false;
+    [SerializeField] Vector3 _endPositionVector;
+    [SerializeField] Transform _endPositionTransform;
+    [SerializeField] float _distToTargetPosThreshold;
+
+    [SerializeField] bool _restartTileSetWhenEndPosReached = false;
+
+
+    private Vector3 startPosition;
     public enum tileColor
     {
         white = 0,
         black = 1,
     }
-
-    /*
-    public void SetAllTiles()
-    {
-        var childCount = pianoTilesSet.transform.childCount;
-        for (int i = 0; i < childCount; i++)
-        {
-            GameObject previousTileSet = null; // if there is previous set, get previous
-            if (i >= 1)
-            {
-                previousTileSet = pianoTilesSet.transform.GetChild(i - 1).gameObject;
-
-              //  Debug.Log("if = " + previousTileSet.name);
-            }
-            else if (i == 0)
-            {
-                previousTileSet = pianoTilesSet.transform.GetChild(childCount - 1).gameObject;
-              //  Debug.Log("else if = " + previousTileSet.name);
-            }
-            else
-            {
-                previousTileSet = pianoTilesSet.transform.GetChild(childCount - 1).gameObject;
-              //  Debug.Log("else if = " + previousTileSet.name);
-            }
-            
-            var tileSet = pianoTilesSet.transform.GetChild(i).gameObject;
-    
-            if (tileSet != null)
-            {
-          //      Debug.Log(i);
-                SetTilesSet(tileSet, previousTileSet);
-         //       Debug.Log("tile set " + tileSet.name + " prev tile set " + previousTileSet.name);
-            }
-        }
-    }
-    */
 
     public void SetAllTiles()
     {
@@ -78,8 +56,10 @@ public class PianoManager : MonoBehaviour
 
                 if (currentTileSet != null)
                 {
-                    SetTilesSet(currentTileSet, previousTileSet);
-                    if(i== 0)
+                    SetColorOfTilesSet(currentTileSet, previousTileSet);
+                    StartCoroutine(MoveTilesCoroutine(currentTileSet.transform));
+
+                    if (i== 0)
                     {
                         Debug.Log("set section 1" + currentTileSet.name);
                     }
@@ -89,7 +69,7 @@ public class PianoManager : MonoBehaviour
     }
 
 
-    public void SetTilesSet(GameObject thisTileSet, GameObject previousTileSet)
+    public void SetColorOfTilesSet(GameObject thisTileSet, GameObject previousTileSet)
     {
         var childrenInTileSet = thisTileSet.transform.childCount;
 
@@ -158,34 +138,17 @@ public class PianoManager : MonoBehaviour
     }
 
 
-    /*
-    private int generateIndexNearPrevIndex(int previousSetIndex, int maxRange)
-    {
-        int randomTileIndex;
-        int thisNewTileIndex = 0;
-        bool generateTileIndex = true;
-
-        while (generateTileIndex)
-        {
-            randomTileIndex = Random.Range(0, maxRange);
-            // seeing if generated index is near the previous tile's index enough for the user to jump to it, if not, we generate another index
-            if (randomTileIndex == previousSetIndex || randomTileIndex == previousSetIndex + 1 || randomTileIndex == previousSetIndex - 1)
-            {
-                thisNewTileIndex = randomTileIndex;
-                generateTileIndex = false;
-                
-            }
-        }
-        return thisNewTileIndex;
-
-    }
-    */
-
-    // Start is called before the first frame update
     void Start()
     {
         SetAllTiles(); Debug.Log("started");
 
+        startPosition = _startPosition.localPosition;
+
+        if (useEndPositionTransform && _endPositionTransform != null)
+        {
+            _endPositionVector = _endPositionTransform.localPosition;
+        }
+    
     }
 
     // Update is called once per frame
@@ -193,4 +156,86 @@ public class PianoManager : MonoBehaviour
     {
         
     }
+    
+    public void StartMoveTileSetCoroutine(Transform tileRow)
+    {
+        StartCoroutine(MoveTilesCoroutine(tileRow));
+    }
+    
+    IEnumerator MoveTilesCoroutine(Transform tileRow)
+    {
+        var distToEnd = Vector3.Distance(tileRow.localPosition, _endPositionVector);
+        while (distToEnd > _distToTargetPosThreshold)
+        {
+            distToEnd = Vector3.Distance(tileRow.localPosition, _endPositionVector);
+         //   Debug.Log(tileRow.localPosition);
+
+            var xPos = tileRow.localPosition.x;
+            var xDest = _endPositionVector.x;
+            var yPos = tileRow.localPosition.y;
+            var yDest = _endPositionVector.y;
+            var zPos = tileRow.localPosition.z;
+            var zDest = _endPositionVector.z;
+
+
+            var newX = moveToPosition(xPos, xDest);
+            var newY = moveToPosition(yPos, yDest);
+            var newZ = moveToPosition(zPos, zDest);
+
+            tileRow.localPosition = new Vector3(newX, newY, newZ);
+
+         //   Debug.Log(tileRow.name);
+
+         //   Debug.Log((distToEnd > _distToTargetPosThreshold) + "dist " + distToEnd + "name" + tileRow.name);
+            yield return null;
+        }
+            Debug.Log("triggered");
+        
+        if(_restartTileSetWhenEndPosReached)
+        {            Debug.Log("finished");
+
+            tileRow.TryGetComponent(out TileSet tileSetComponent);
+
+            if (tileSetComponent.correctTileTriggered == false)
+            {
+                // getting the tile that is black in the set and triggering it to flash red/wrong
+                tileRow.transform.GetChild(tileSetComponent.blackTileIndexNum).GetComponent<PianoTile>().MissedTile();
+                tileRow.localPosition = startPosition;
+                tileRow.GetComponent<TileSet>().ResetThisTileSet();
+            }
+            else if (tileSetComponent.correctTileTriggered == true) 
+            {
+                tileRow.localPosition = startPosition;
+                tileRow.GetComponent<TileSet>().ResetThisTileSet();
+            }
+        }
+
+       // if (_restartWhenTargetPosReached)
+       // {
+
+         //   StartMoveCoroutine();
+       // }
+    }
+
+
+    private float moveToPosition(float axisCurrentPosition, float axisEndPosition)
+    {
+        if (axisCurrentPosition < axisEndPosition)
+        {
+
+            axisCurrentPosition = axisCurrentPosition + (_moveSpeed);
+        }
+        else if (axisCurrentPosition > axisEndPosition)
+        {
+
+            axisCurrentPosition = axisCurrentPosition - (_moveSpeed);
+        }
+        else
+        {
+            //  Debug.Log("dist within range");
+        }
+
+        return axisCurrentPosition;
+    }
+
 }

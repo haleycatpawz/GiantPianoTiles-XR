@@ -11,6 +11,8 @@ public class TileSet : MonoBehaviour
     GameObject thisSet;
     [SerializeField] GameObject prevTileSet;
 
+    public bool correctTileTriggered;
+
     private void Start()
     {
         thisSet = gameObject;
@@ -18,7 +20,10 @@ public class TileSet : MonoBehaviour
 
     public void ResetThisTileSet()
     {
-        pianoManager.SetTilesSet(thisSet, prevTileSet);
+        pianoManager.SetColorOfTilesSet(thisSet, prevTileSet);
+        pianoManager.StartMoveTileSetCoroutine(transform);
+        correctTileTriggered = false;
+
     }
 
 }
