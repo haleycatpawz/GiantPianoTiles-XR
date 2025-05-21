@@ -8,7 +8,7 @@ namespace Hands
 {
     public class XRHandHider : MonoBehaviour
     {
-        [SerializeField] private XRBaseControllerInteractor _controller;
+        [SerializeField] private UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor _controller;
         [SerializeField] private Rigidbody _handRigidBody;
         [SerializeField] private ConfigurableJoint _configurableJoint;
         [SerializeField] private float _haandShowDelay = 0.16f;
@@ -27,7 +27,7 @@ namespace Hands
 
         private void SelectEntered(SelectEnterEventArgs arg0)
         {
-            if (arg0.interactable is BaseTeleportationInteractable) return;
+            if (arg0.interactableObject is UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.BaseTeleportationInteractable) return;
            // Debug.Log("select has been entered");
             _handRigidBody.gameObject.SetActive(false);
             _configurableJoint.connectedBody = null;
@@ -38,7 +38,7 @@ namespace Hands
 
         private void SelectExited(SelectExitEventArgs arg0)
         {
-            if (arg0.interactable is BaseTeleportationInteractable) return;
+            if (arg0.interactableObject is UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.BaseTeleportationInteractable) return;
 
             // Debug.Log("select exited has been triggers");
             Invoke(nameof(ShowHand), 1f);

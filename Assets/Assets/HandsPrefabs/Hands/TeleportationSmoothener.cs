@@ -9,7 +9,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class TeleportationSmoothener : TeleportationArea
+public class TeleportationSmoothener : UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea
 {
     [SerializeField] float teleportDuration;
     [SerializeField] float teleportSpeed = 0.5f;
@@ -32,11 +32,11 @@ public class TeleportationSmoothener : TeleportationArea
     {
         if (currentlyTeleporting == true) return;
 
-        if (args0.interactorObject is XRRayInteractor rayInteractor)
+        if (args0.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor)
         {
             if (!rayInteractor.TryGetCurrent3DRaycastHit(out var hit)) return;
 
-            if (!hit.collider.TryGetComponent(out TeleportationArea area)) return;
+            if (!hit.collider.TryGetComponent(out UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea area)) return;
 
             // calculating distance from the user's current position and raycast hit point (where the user is trying to teleport)
             // to detemine how long it takes to get to position, and keep a dynamic speed
