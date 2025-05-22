@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
 
    // [SerializeField] 
 
-
-
     public void StartGame()
     {
         gameScore = 0;
@@ -54,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void addStrike()
     {
-        if (!gameIsPlaying)
+        if (gameIsPlaying)
         {
             numberOfStrikes += 1;
 

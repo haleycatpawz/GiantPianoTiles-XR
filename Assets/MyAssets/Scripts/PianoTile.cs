@@ -75,7 +75,7 @@ public class PianoTile : MonoBehaviour
             return;
         }
 
-        if (tileIsTriggered == false)
+        if (tileIsTriggered == false && other.tag == "Player")
         {
         if (pianoTileColor == PianoManager.tileColor.black)
         {

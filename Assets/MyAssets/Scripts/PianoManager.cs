@@ -35,6 +35,7 @@ public class PianoManager : MonoBehaviour
     [SerializeField] bool _restartTileSetWhenEndPosReached = false;
     [SerializeField] float _timeBeforeDestruction;
 
+    public Transform latestTileSet;
    // [SerializeField] UnityEvent destroyTileSet;
 
     public enum tileColor
@@ -61,6 +62,14 @@ public class PianoManager : MonoBehaviour
         SpawnTileSet();
         
     }
+
+    private void Update()
+    {
+        if(latestTileSet.transform.localPosition.z <= 3f)
+        {
+            SpawnTileSet();
+        }
+    }
     public void SpawnTileSet()
     {
 
@@ -83,6 +92,8 @@ public class PianoManager : MonoBehaviour
         // assigning a black tile and triggering movement of new prefab
         SetColorOfTilesSet(tileSet, tileSetComponent._prevTileSet, tileSetComponent._tileSetIDIndex);
         StartMoveTileSetCoroutine(tileSet.transform);
+
+        latestTileSet = tileSet.transform;
     }
 
     private GameObject findPreviousTileSetFromIndex(int indexNum)

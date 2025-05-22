@@ -17,6 +17,7 @@ public class TileSet : MonoBehaviour
     private void Start()
     {
         _thisSet = gameObject;
+       // pianoManager.destro
     }
 
     public void SetThisTileSet()
@@ -26,7 +27,7 @@ public class TileSet : MonoBehaviour
     }
     public void ResetThisTileSet()
     {
-        pianoManager.SpawnTileSet();
+      //  pianoManager.SpawnTileSet();
       //  Destroy(_thisSet);
         Destroy(gameObject);
 
