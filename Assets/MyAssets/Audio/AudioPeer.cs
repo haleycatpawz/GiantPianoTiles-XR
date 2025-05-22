@@ -14,6 +14,10 @@ public class AudioPeer : MonoBehaviour
 
     public float[] _frequencyBand = new float[8];
 
+    public float[] _bandBuffer = new float[8];
+   // public static float[] _bandBuffer = new float[8];
+    float[] _bufferDecrease = new float[8];
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +29,25 @@ public class AudioPeer : MonoBehaviour
     {
         GetSpectrumAudioSource();
         MakeFrequencyBands();
+
+        bandBuffer();
+    }
+
+    private void bandBuffer()
+    {
+        for(int i = 0; i < 8;  ++i)
+        {
+            if (_frequencyBand[i] > _bandBuffer[i])
+            {
+                _bandBuffer[i] = _frequencyBand[i];
+                _bufferDecrease[i] = 0.005f;
+            }
+            if(_frequencyBand[i] < _bandBuffer[i])
+            {
+                _bandBuffer[i] -= _bufferDecrease[i];
+                _bufferDecrease[i] *= 1.2f;
+            }
+        }
     }
     private void GetSpectrumAudioSource()
     {
@@ -48,8 +71,9 @@ public class AudioPeer : MonoBehaviour
          * */
 
         int count = 0;
-
-        for (int i = 0; i < _frequencyBand.Length; i++)
+        // 8 because we have 8 bandss
+        for (int i = 0; i < 8; i++)
+      //  for (int i = 0; i < _frequencyBand.Length; i++)
         {
 
             float average = 0;
