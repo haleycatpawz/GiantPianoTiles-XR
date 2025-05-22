@@ -18,7 +18,7 @@ public class AudioVisualizerCube : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {/*
         if (_useBuffer)
         {
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, (_audioPeer._bandBuffer[_band] * _scaleMultiplier) * _startScale);
@@ -28,9 +28,17 @@ public class AudioVisualizerCube : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, (_audioPeer._frequencyBand[_band] * _scaleMultiplier) * _startScale);
         }
         
+        */
+        if (_useBuffer)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, (_audioPeer._audioBandBuffer[_band] * _scaleMultiplier) * _startScale);
+        }
+        if (!_useBuffer)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, (_audioPeer._audioBand[_band] * _scaleMultiplier) * _startScale);
+        }
         
-        
-        receivedValue = _audioPeer._frequencyBand[_band];
+        receivedValue = _audioPeer._audioBand[_band];
         //  transform.localScale = new Vector3(transform.localScale.x, (AudioPeer._frequencyBand[_band] * _scaleMultiplier) * _startScale, transform.localScale.z);      
     }
 }

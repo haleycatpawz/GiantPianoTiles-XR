@@ -6,31 +6,86 @@ using System.Linq;
 [RequireComponent (typeof(AudioSource))]
 public class AudioPeer : MonoBehaviour
 {
-
+    [SerializeField] GameManager _gameManager;
     AudioSource _audioSource;
     // changing 512 to 64 512 / 8
-    public float[] _samples = new float[512];
+    public static float[] _samples = new float[512];
     //public static float[] _samples = new float[512];
 
-    public float[] _frequencyBand = new float[8];
+    public static float[] _frequencyBand = new float[8];
 
-    public float[] _bandBuffer = new float[8];
+    public static float[] _bandBuffer = new float[8];
    // public static float[] _bandBuffer = new float[8];
     float[] _bufferDecrease = new float[8];
 
+    public float[] _frequencyBandHighest = new float[8];
+    public float[] _audioBand = new float[8];
+    public float[] _audioBandBuffer = new float[8];
+
+    public float _Amplitude, _AmplitudeBuffer;
+    public float _AmplitudeHighest;
+    public float _audioProfileFloat;
+
+
+    [SerializeField] float _sensitivity = 100f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-           _audioSource = GetComponent<AudioSource>();   
+           _audioSource = GetComponent<AudioSource>();
+        AudioProfile(_audioProfileFloat);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(_gameManager.gameIsPlaying) 
+        { 
         GetSpectrumAudioSource();
         MakeFrequencyBands();
-
         bandBuffer();
+        CreateAudioBands();
+        GetAmplitude();
+        }
+    }
+
+    private void AudioProfile(float audioProfile)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            _frequencyBandHighest[i] = audioProfile;
+        }
+    }
+
+    private void GetAmplitude()
+    {
+        float _CurrentAmplitude = 0;
+        float _CurrentAmplitudeBuffer = 0;
+        for(int i = 0; i < 8; i++)
+        {
+            _CurrentAmplitude += _audioBand[i];
+            _CurrentAmplitudeBuffer += _audioBandBuffer[i];
+
+            if(_CurrentAmplitude > _AmplitudeHighest)
+            {
+                _AmplitudeHighest = _CurrentAmplitude;
+            }
+            _Amplitude = _CurrentAmplitudeBuffer / _AmplitudeHighest;
+            _AmplitudeBuffer = _CurrentAmplitude / _AmplitudeHighest;
+        }
+    }
+
+    private void CreateAudioBands()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (_frequencyBand[i] > _frequencyBandHighest[i]) {
+                _frequencyBandHighest[i] = _frequencyBand[i];
+            }
+            _audioBand[i] = (_frequencyBand[i] / _frequencyBandHighest[i]);
+            _audioBandBuffer[i] = (_bandBuffer[i] / _frequencyBandHighest[i]);
+
+        }
+    
     }
 
     private void bandBuffer()
@@ -84,15 +139,17 @@ public class AudioPeer : MonoBehaviour
                 sampleCount += 2;
             }
 
-            for (int h = 0; h < sampleCount; h++)
+            for (int j = 0; j < sampleCount; j++)
             {
 
+              //  average += _samples[count];
                 average += _samples[count] * count + 1;
                 count++;
+              //  if (count >= _samples.Length) break;
             }
 
             average /= count;
-            _frequencyBand[i] = average * 10;
+            _frequencyBand[i] = average * _sensitivity;
         }
     }
 
