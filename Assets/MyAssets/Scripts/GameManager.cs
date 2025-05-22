@@ -65,9 +65,46 @@ public class GameManager : MonoBehaviour
         ResetGame();
     }
 
-    // Update is called once per frame
+
+
+
     void Update()
     {
-        
+
     }
+
+    private Coroutine timeCoroutine;
+
+    public void SlowDownGame()
+    {
+        if (gameIsPlaying == true) // toggle slow-mo
+        {
+            if (timeCoroutine != null)
+                StopCoroutine(timeCoroutine);
+
+            if (Mathf.Approximately(Time.timeScale, 1f))
+                timeCoroutine = StartCoroutine(ChangeTimeScale(1f, 0.001f, 1f)); // Slow time over 1 second
+            else
+                timeCoroutine = StartCoroutine(ChangeTimeScale(Time.timeScale, 1f, 1f)); // Resume time over 1 second
+        }
+    }
+
+    IEnumerator ChangeTimeScale(float start, float end, float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            Time.timeScale = Mathf.Lerp(start, end, elapsed / duration);
+            elapsed += Time.unscaledDeltaTime; // Use unscaledDeltaTime to remain consistent even when time is slowed
+            yield return null;
+        }
+
+        Time.timeScale = end;
+        Debug.Log($"Time scale set to {end}.");
+    }
+
+
+
+
 }

@@ -1,13 +1,19 @@
 using UnityEngine;
 using System.Collections;
+using System;
+using System.Linq;
 
 [RequireComponent (typeof(AudioSource))]
 public class AudioPeer : MonoBehaviour
 {
 
     AudioSource _audioSource;
+    // changing 512 to 64 512 / 8
     public float[] _samples = new float[512];
-    
+    //public static float[] _samples = new float[512];
+
+    public float[] _frequencyBand = new float[8];
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,13 +23,54 @@ public class AudioPeer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetSpectrumAudioSource();   
+        GetSpectrumAudioSource();
+        MakeFrequencyBands();
     }
-
-
     private void GetSpectrumAudioSource()
     {
         _audioSource.GetSpectrumData(_samples, 0, FFTWindow.Blackman);
     }
+
+    private void MakeFrequencyBands()
+    {
+        /*
+         * 22050 / 512 = 43 hertz per sample
+         * 20 - 60 htz
+         * 250 - 500 
+         * 500 - 2000
+         * 2000 -400
+         * 4000 - 6000
+         * 6000 - 20000 hertz
+         * 
+         * 0 - 2 = 86 hertz
+         * 1 - 4 = 172 hertz - 87 -258 hertz range
+         * 3 * 8 = 344 - 259 - 602
+         * */
+
+        int count = 0;
+
+        for (int i = 0; i < _frequencyBand.Length; i++)
+        {
+
+            float average = 0;
+            int sampleCount = (int)Mathf.Pow(2, i) * 2;
+
+            if (i == 7)
+            {
+                sampleCount += 2;
+            }
+
+            for (int h = 0; h < sampleCount; h++)
+            {
+
+                average += _samples[count] * count + 1;
+                count++;
+            }
+
+            average /= count;
+            _frequencyBand[i] = average * 10;
+        }
+    }
+
 
 }
