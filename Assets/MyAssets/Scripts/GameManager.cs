@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
         // play music only when game has begun
         _musicAudioSource.Play();
+        gameStarted.Invoke();
 
     }
     private void ResetGame()
