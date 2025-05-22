@@ -53,21 +53,24 @@ public class PianoManager : MonoBehaviour
             _endPositionVector = _endPositionTransform.localPosition;
         }
 
-        StartPlayingGame();
+       // StartPlayingGame();
     }
 
-    private void StartPlayingGame()
+    public void StartPlayingGame()
     {
-        _gameManager.StartGame();
+      //  _gameManager.StartGame();
         SpawnTileSet();
         
     }
 
     private void Update()
     {
+        if(latestTileSet != null) {
+
         if(latestTileSet.transform.localPosition.z <= 3f)
         {
             SpawnTileSet();
+        } 
         }
     }
     public void SpawnTileSet()

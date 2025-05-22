@@ -12,11 +12,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] int numberOfStrikes = 0;
 
     [SerializeField] AudioSource _musicAudioSource;
+    [SerializeField] PianoManager _pianoManager;
 
     public bool GameHasStarted;
     public bool gameIsPlaying;
 
-    
+    [SerializeField] GameObject _startCanvasUI;
+    [SerializeField] GameObject _playingCanvasUI;
+    [SerializeField] List<GameObject> _strikeImages;
+
+    [SerializeField] GameObject _endCanvasUI;
+    [SerializeField] GameObject _starfieldVFX;
 
 
     [SerializeField] UnityEvent gameStarted;
@@ -37,7 +43,18 @@ public class GameManager : MonoBehaviour
 
         // play music only when game has begun
         _musicAudioSource.Play();
+        _starfieldVFX.SetActive(true);
+
+        // turning on game play screen
+        _playingCanvasUI.SetActive(true);
+
+        _startCanvasUI.SetActive(false);
+
+
         gameStarted.Invoke();
+        _pianoManager.StartPlayingGame();
+
+
 
     }
     private void ResetGame()
@@ -65,7 +82,26 @@ public class GameManager : MonoBehaviour
         {
             numberOfStrikes += 1;
 
+            SlowDownGame();
+
+
+            if (numberOfStrikes >= 3)
+            {
+                EndGame();
+            }
         }
+    }
+
+    private void EndGame()
+    {
+        gameIsPlaying = false;
+
+        // play music only when game has begun
+        _musicAudioSource.Stop();
+        _starfieldVFX.SetActive(false);
+
+        _endCanvasUI.SetActive(true);
+        _playingCanvasUI.SetActive(false);
     }
 
     // Start is called before the first frame update
