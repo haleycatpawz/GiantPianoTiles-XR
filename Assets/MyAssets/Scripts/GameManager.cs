@@ -8,24 +8,39 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMPro.TextMeshPro scoreText;
 
     [SerializeField] int numberOfStrikes = 0;
+
+    public bool GameHasStarted;
+    public bool gameIsPlaying;
+
    // [SerializeField] 
 
     private void SetGame()
     {
         gameScore = 0;
-        scoreText.text = gameScore.ToString();
         numberOfStrikes = 0;
+        scoreText.text = gameScore.ToString();
+
+        gameIsPlaying = false;
+        GameHasStarted = false;
+
     }
     
     public void IncreaseGameScore()
     {
-        gameScore += 1;
-        scoreText.text = gameScore.ToString();
+        if (gameIsPlaying)
+        {
+            gameScore += 1;
+            scoreText.text = gameScore.ToString();
+        }
     }
 
     public void addStrike()
     {
-        numberOfStrikes += 1;
+        if (!gameIsPlaying)
+        {
+            numberOfStrikes += 1;
+
+        }
     }
 
     // Start is called before the first frame update

@@ -61,11 +61,11 @@ public class PianoTile : MonoBehaviour
 
     */
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-
+        
        // StartColorTransition();
-        Debug.Log("collided with" + collision.gameObject.name);
+        Debug.Log("collided with" + other.gameObject.name);
 
        
         if (meshRenderer == null)
@@ -74,14 +74,10 @@ public class PianoTile : MonoBehaviour
             return;
         }
 
-        if (tileIsTriggered)
+        if (tileIsTriggered == false)
         {
-
-        }
-
         if (pianoTileColor == PianoManager.tileColor.black)
         {
-
             CorrectTile();
             transform.parent.GetComponent<TileSet>().correctTileTriggered = true;
 
@@ -89,10 +85,20 @@ public class PianoTile : MonoBehaviour
         else
         {
             MissedTile();
-          //  transform.parent.GetComponent<TileSet>().correctTileTriggered = false;
+            transform.parent.GetComponent<TileSet>().correctTileTriggered = false;
+        }
+        }
+        else
+        {
+             // tile has already triggered. 
         }
 
     }
+   // private void OnCollisionEnter(Collision collision)
+   // {
+
+
+   // }
 
 
     private void CorrectTile()

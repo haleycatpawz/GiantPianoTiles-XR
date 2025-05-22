@@ -9,21 +9,29 @@ public class TileSet : MonoBehaviour
     public int blackTileIndexNum;
 
     GameObject thisSet;
-    [SerializeField] GameObject prevTileSet;
+    public GameObject prevTileSet;
+    public int tileSetIndex = 0;
 
-    public bool correctTileTriggered;
+    public bool correctTileTriggered = false;
 
     private void Start()
     {
         thisSet = gameObject;
     }
 
+    public void SetThisTileSet()
+    {
+        pianoManager.SetColorOfTilesSet(thisSet, prevTileSet, tileSetIndex);
+   //     pianoManager.SetColorOfTilesSet(thisSet, prevTileSet, tileSetIndex);
+        pianoManager.StartMoveTileSetCoroutine(transform);
+    }
     public void ResetThisTileSet()
     {
-        pianoManager.SetColorOfTilesSet(thisSet, prevTileSet);
-        pianoManager.StartMoveTileSetCoroutine(transform);
-        correctTileTriggered = false;
+        pianoManager.SpawnTileSet();
+        Destroy(thisSet);
+        Destroy(gameObject);
 
+ //       correctTileTriggered = false;
     }
 
 }

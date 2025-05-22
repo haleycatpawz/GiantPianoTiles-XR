@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
@@ -12,7 +13,9 @@ public class PianoManager : MonoBehaviour
     [SerializeField] public Material blackMat;
     [SerializeField] public Material triggerMatColor;
 
-    [SerializeField] GameObject pianoTilesSet;
+    [SerializeField] GameObject pianoTilesSets;
+    [SerializeField] GameObject pianoTilesSetPrefab;
+
 
     [SerializeField] float _moveSpeed = 1;
     // [SerializeField] Vector3 _moveDirection;
@@ -26,6 +29,7 @@ public class PianoManager : MonoBehaviour
     [SerializeField] bool _restartTileSetWhenEndPosReached = false;
 
 
+
     private Vector3 startPosition;
     public enum tileColor
     {
@@ -35,7 +39,9 @@ public class PianoManager : MonoBehaviour
 
     public void SetAllTiles()
     {
-        var childCount = pianoTilesSet.transform.childCount;
+        var childCount = pianoTilesSets.transform.childCount;
+
+        if (childCount == 0) return ;
 
         for (int i = 0; i < childCount; i++)
         {
@@ -45,18 +51,19 @@ public class PianoManager : MonoBehaviour
             {
                 if (i > 0)
                 {
-                    previousTileSet = pianoTilesSet.transform.GetChild(i - 1).gameObject;
+                    previousTileSet = pianoTilesSets.transform.GetChild(i - 1).gameObject;
                 }
                 else // i == 0
                 {
-                    previousTileSet = pianoTilesSet.transform.GetChild(childCount - 1).gameObject;
+                    previousTileSet = pianoTilesSets.transform.GetChild(childCount - 1).gameObject;
                 }
 
-                GameObject currentTileSet = pianoTilesSet.transform.GetChild(i).gameObject;
+                GameObject currentTileSet = pianoTilesSets.transform.GetChild(i).gameObject;
+                int setIndexNum = currentTileSet.GetComponent<TileSet>().tileSetIndex;
 
                 if (currentTileSet != null)
                 {
-                    SetColorOfTilesSet(currentTileSet, previousTileSet);
+                    SetColorOfTilesSet(currentTileSet, previousTileSet,  setIndexNum);
                     StartCoroutine(MoveTilesCoroutine(currentTileSet.transform));
 
                     if (i== 0)
@@ -68,39 +75,81 @@ public class PianoManager : MonoBehaviour
         }
     }
 
-
-    public void SetColorOfTilesSet(GameObject thisTileSet, GameObject previousTileSet)
+    public void SpawnTileSet()
     {
-        var childrenInTileSet = thisTileSet.transform.childCount;
+        var childCount = pianoTilesSets.transform.childCount;
 
-      //  int randomTileIndex = Random.Range(0, childrenInTileSet);
-        int prevBlackTileIndex = previousTileSet.GetComponent<TileSet>().blackTileIndexNum;
-        int thisBlackTileIndex = generateIndexNearPrevIndex(prevBlackTileIndex, childrenInTileSet);
+        var tileSet = Instantiate(pianoTilesSetPrefab, _startPosition.position, Quaternion.identity);
+        int index = tileSet.GetComponent<TileSet>().tileSetIndex = childCount - 1;
 
-        thisTileSet.GetComponent<TileSet>().blackTileIndexNum = thisBlackTileIndex;
+        tileSet.name = pianoTilesSetPrefab.name + " " + (index);
 
-        //  Debug.Log(thisBlackTileIndex);
+        tileSet.GetComponent<TileSet>().SetThisTileSet();
+        tileSet.GetComponent<TileSet>().prevTileSet = findPreviousTileSetFromIndex(index);
+    }
 
-      //  if("pianoTilesSet1" == thisTileSet.name) Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
-     
-        for (int j = 0; j < childrenInTileSet; j++)
+    private GameObject findPreviousTileSetFromIndex(int indexNum)
+    {
+        var childCount = pianoTilesSets.transform.childCount;
+
+        //   if (childCount == 0 || childCount < 0) return;
+
+        GameObject prevTileSet;
+
+        if (childCount > 0)
         {
-            GameObject tile = thisTileSet.transform.GetChild(j).gameObject;
-
-            if (j == thisBlackTileIndex)
-            {
-                setTileColor(tile, tileColor.black);
-                if (thisTileSet.name == "pianoTilesSet1")  Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
-
-            }
-            else
-            {
-                setTileColor(tile, tileColor.white);
-            }
-
-      //      Debug.Log(j + tile.name);
-          //  if (tile.name == "pianoTilesSet1")  Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
+            prevTileSet = pianoTilesSets.transform.GetChild(indexNum - 1).gameObject;
         }
+        else // i == 0
+        {
+            //  prevTileSet = pianoTilesSets.transform.GetChild(childCount - 1).gameObject;
+            prevTileSet = null;
+        }
+        
+        return prevTileSet;
+    }
+    public void SetColorOfTilesSet(GameObject thisTileSet, GameObject previousTileSet, int tileSetIndex)
+    {
+       var childrenInTileSet = thisTileSet.transform.childCount;
+
+        //  int randomTileIndex = Random.Range(0, childrenInTileSet);
+        //   int prevBlackTileIndex = previousTileSet.GetComponent<TileSet>().blackTileIndexNum;
+
+        int prevBlackTileIndex ;
+
+        if (previousTileSet != null)
+        {
+            prevBlackTileIndex = previousTileSet.GetComponent<TileSet>().blackTileIndexNum;
+        }
+        else prevBlackTileIndex = Random.Range(0, 3);
+
+            int thisBlackTileIndex = generateIndexNearPrevIndex(prevBlackTileIndex, childrenInTileSet);
+
+            thisTileSet.GetComponent<TileSet>().blackTileIndexNum = thisBlackTileIndex;
+
+            //  Debug.Log(thisBlackTileIndex);
+
+            //  if("pianoTilesSet1" == thisTileSet.name) Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
+
+            for (int j = 0; j < childrenInTileSet; j++)
+            {
+                GameObject tile = thisTileSet.transform.GetChild(j).gameObject;
+
+                if (j == thisBlackTileIndex)
+                {
+                    setTileColor(tile, tileColor.black);
+                    if (thisTileSet.name == "pianoTilesSet1") Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
+
+                }
+                else
+                {
+                    setTileColor(tile, tileColor.white);
+                }
+
+                //      Debug.Log(j + tile.name);
+                //  if (tile.name == "pianoTilesSet1")  Debug.Log(thisTileSet.name + "index " + thisBlackTileIndex);
+            }
+        
     }
 
     private int generateIndexNearPrevIndex(int previousSetIndex, int maxRange)
@@ -135,12 +184,17 @@ public class PianoManager : MonoBehaviour
         {
             tileMeshRenderer.material = blackMat;
         }
+
+        // resetting if tile is triggered so user can trigger it again when it respawns
+        pianoTileComponent.tileIsTriggered = false;
     }
 
 
     void Start()
     {
-        SetAllTiles(); Debug.Log("started");
+     //   SetAllTiles(); Debug.Log("started");
+
+        SpawnTileSet();
 
         startPosition = _startPosition.localPosition;
 
@@ -200,12 +254,12 @@ public class PianoManager : MonoBehaviour
             {
                 // getting the tile that is black in the set and triggering it to flash red/wrong
                 tileRow.transform.GetChild(tileSetComponent.blackTileIndexNum).GetComponent<PianoTile>().MissedTile();
-                tileRow.localPosition = startPosition;
+            //    tileRow.localPosition = startPosition;
                 tileRow.GetComponent<TileSet>().ResetThisTileSet();
             }
             else if (tileSetComponent.correctTileTriggered == true) 
             {
-                tileRow.localPosition = startPosition;
+             //   tileRow.localPosition = startPosition;
                 tileRow.GetComponent<TileSet>().ResetThisTileSet();
             }
         }
