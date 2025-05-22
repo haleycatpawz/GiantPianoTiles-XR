@@ -126,9 +126,9 @@ MonoBehaviour:
   pianoTileColor: 1
   tileIsTriggered: 0
   transitionDuration: 0.05
-  startColor: {r: 1, g: 0, b: 0, a: 1}
-  endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
-  endColorWrong: {r: 1, g: 0, b: 0, a: 1}
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColorCorrect: {r: 0, g: 0.8962021, b: 1, a: 1}
+  endColorWrong: {r: 1, g: 0.040880322, b: 0.63729155, a: 1}
 --- !u!1 &3711570967012304640
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,9 +255,9 @@ MonoBehaviour:
   pianoTileColor: 1
   tileIsTriggered: 0
   transitionDuration: 0.05
-  startColor: {r: 1, g: 0, b: 0, a: 1}
-  endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
-  endColorWrong: {r: 1, g: 0, b: 0, a: 1}
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColorCorrect: {r: 0, g: 0.8962021, b: 1, a: 1}
+  endColorWrong: {r: 1, g: 0.040880322, b: 0.63729155, a: 1}
 --- !u!1 &4648645696294828271
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,8 +385,8 @@ MonoBehaviour:
   tileIsTriggered: 0
   transitionDuration: 0.05
   startColor: {r: 1, g: 1, b: 1, a: 1}
-  endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
-  endColorWrong: {r: 1, g: 0, b: 0, a: 1}
+  endColorCorrect: {r: 0, g: 0.8962021, b: 1, a: 1}
+  endColorWrong: {r: 1, g: 0.040880322, b: 0.63729155, a: 1}
 --- !u!1 &5061459464605816137
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,9 +513,9 @@ MonoBehaviour:
   pianoTileColor: 1
   tileIsTriggered: 0
   transitionDuration: 0.05
-  startColor: {r: 1, g: 0, b: 0, a: 1}
-  endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
-  endColorWrong: {r: 1, g: 0, b: 0, a: 1}
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColorCorrect: {r: 0, g: 0.8962021, b: 1, a: 1}
+  endColorWrong: {r: 1, g: 0.040880322, b: 0.63729155, a: 1}
 --- !u!1 &6032773614284519060
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +716,6 @@ MonoBehaviour:
   pianoTileColor: 1
   tileIsTriggered: 0
   transitionDuration: 0.05
-  startColor: {r: 1, g: 0, b: 0, a: 1}
-  endColorCorrect: {r: 0, g: 1, b: 0, a: 1}
-  endColorWrong: {r: 1, g: 0, b: 0, a: 1}
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColorCorrect: {r: 0, g: 0.8962021, b: 1, a: 1}
+  endColorWrong: {r: 1, g: 0.040880322, b: 0.63729155, a: 1}

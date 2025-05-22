@@ -11,8 +11,13 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int numberOfStrikes = 0;
 
+    [SerializeField] AudioSource _musicAudioSource;
+
     public bool GameHasStarted;
     public bool gameIsPlaying;
+
+    
+
 
     [SerializeField] UnityEvent gameStarted;
     [SerializeField] UnityEvent gameEnded;
@@ -29,6 +34,9 @@ public class GameManager : MonoBehaviour
 
         gameIsPlaying = true;
         GameHasStarted = true;
+
+        // play music only when game has begun
+        _musicAudioSource.Play();
 
     }
     private void ResetGame()
