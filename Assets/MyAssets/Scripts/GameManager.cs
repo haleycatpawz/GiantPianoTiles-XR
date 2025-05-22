@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public int gameScore = 0;
     [SerializeField] TMPro.TextMeshPro scoreText;
+    [SerializeField] TMPro.TextMeshProUGUI finalScoreText;
+  //  [SerializeField] TMPro.TextMeshPro finalScoreText;
 
     [SerializeField] int numberOfStrikes = 0;
 
@@ -20,9 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _startCanvasUI;
     [SerializeField] GameObject _playingCanvasUI;
     [SerializeField] List<GameObject> _strikeImages;
-
     [SerializeField] GameObject _endCanvasUI;
     [SerializeField] GameObject _starfieldVFX;
+    [SerializeField] GameObject _neonLines;
 
 
     [SerializeField] UnityEvent gameStarted;
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
         // play music only when game has begun
         _musicAudioSource.Play();
         _starfieldVFX.SetActive(true);
+        _neonLines.SetActive(true);
 
         // turning on game play screen
         _playingCanvasUI.SetActive(true);
@@ -57,7 +61,15 @@ public class GameManager : MonoBehaviour
 
 
     }
-    private void ResetGame()
+    public void ReloadCurrentScene()
+    {
+        // Get the name of the currently active scene
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Load the scene by its name
+        SceneManager.LoadScene(currentSceneName);
+    }
+    public void ResetGame()
     {
         gameScore = 0;
         numberOfStrikes = 0;
@@ -65,6 +77,7 @@ public class GameManager : MonoBehaviour
 
         gameIsPlaying = false;
         GameHasStarted = false;
+        ReloadCurrentScene();
 
     }
     public void IncreaseGameScore()
@@ -84,10 +97,27 @@ public class GameManager : MonoBehaviour
 
             SlowDownGame();
 
+            if (numberOfStrikes == 1) { 
+                            _strikeImages[0].SetActive(false);
+                _strikeImages[1].SetActive(true);
+                _strikeImages[2].SetActive(true);
+            }
+            
+            if (numberOfStrikes == 2) { 
+                            _strikeImages[0].SetActive(false);
+                _strikeImages[1].SetActive(false);
+                _strikeImages[2].SetActive(true);
+            }
+
 
             if (numberOfStrikes >= 3)
             {
+                SlowDownGame();
+                _strikeImages[0].SetActive(false);
+                _strikeImages[1].SetActive(false);
+                _strikeImages[2].SetActive(false);
                 EndGame();
+
             }
         }
     }
@@ -99,6 +129,8 @@ public class GameManager : MonoBehaviour
         // play music only when game has begun
         _musicAudioSource.Stop();
         _starfieldVFX.SetActive(false);
+
+        finalScoreText.text = gameScore.ToString();
 
         _endCanvasUI.SetActive(true);
         _playingCanvasUI.SetActive(false);
