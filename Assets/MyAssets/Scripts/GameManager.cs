@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,9 +14,26 @@ public class GameManager : MonoBehaviour
     public bool GameHasStarted;
     public bool gameIsPlaying;
 
+    [SerializeField] UnityEvent gameStarted;
+    [SerializeField] UnityEvent gameEnded;
+    [SerializeField] UnityEvent gameLose;
+    [SerializeField] UnityEvent gameWin;
+
    // [SerializeField] 
 
-    private void SetGame()
+
+
+    public void StartGame()
+    {
+        gameScore = 0;
+        numberOfStrikes = 0;
+        scoreText.text = gameScore.ToString();
+
+        gameIsPlaying = true;
+        GameHasStarted = true;
+
+    }
+    private void ResetGame()
     {
         gameScore = 0;
         numberOfStrikes = 0;
@@ -24,7 +43,6 @@ public class GameManager : MonoBehaviour
         GameHasStarted = false;
 
     }
-    
     public void IncreaseGameScore()
     {
         if (gameIsPlaying)
@@ -44,9 +62,9 @@ public class GameManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        SetGame();
+        ResetGame();
     }
 
     // Update is called once per frame

@@ -7,7 +7,8 @@ public class PianoTile : MonoBehaviour
     // piano manager script that defines the enums, materials, etc. which
     // we will reference here to ensure all piano tiles are alike and can easly be adjusted dynamically
     public PianoManager pianoManager;
-    [SerializeField] GameManager gameManager;
+    public GameManager gameManager;
+ //   [SerializeField] public GameManager gameManager;
     
 
     // this tile's color
@@ -103,6 +104,7 @@ public class PianoTile : MonoBehaviour
 
     private void CorrectTile()
     {
+        Debug.Log("increase game score");
         gameManager.IncreaseGameScore();
         StartCoroutine(TransitionColor(startColor, endColorCorrect, transitionDuration));
         tileIsTriggered = true;
@@ -110,6 +112,7 @@ public class PianoTile : MonoBehaviour
 
     public void MissedTile()
     {
+        Debug.Log("add strike");
         gameManager.addStrike();
         StartCoroutine(TransitionColor(startColor, endColorWrong, transitionDuration));
         tileIsTriggered = true;

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3679386440717087777}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: -0.02, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 0.95, y: 0.1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -542,7 +542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6032773614284519060}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 6}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -586,9 +586,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pianoManager: {fileID: 0}
-  blackTileIndexNum: 0
-  prevTileSet: {fileID: 0}
-  tileSetIndex: 0
+  _blackTileIndexNum: 0
+  _prevTileSet: {fileID: 0}
+  _tileSetIDIndex: 0
   correctTileTriggered: 0
 --- !u!1 &7012242443209684643
 GameObject:

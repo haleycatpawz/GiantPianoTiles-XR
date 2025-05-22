@@ -5,30 +5,29 @@ using UnityEngine;
 public class TileSet : MonoBehaviour
 {
 
-    [SerializeField] PianoManager pianoManager;
-    public int blackTileIndexNum;
+    [SerializeField] public PianoManager pianoManager;
+    public int _blackTileIndexNum;
 
-    GameObject thisSet;
-    public GameObject prevTileSet;
-    public int tileSetIndex = 0;
+    GameObject _thisSet;
+    public GameObject _prevTileSet;
+    public int _tileSetIDIndex = 0;
 
     public bool correctTileTriggered = false;
 
     private void Start()
     {
-        thisSet = gameObject;
+        _thisSet = gameObject;
     }
 
     public void SetThisTileSet()
     {
-        pianoManager.SetColorOfTilesSet(thisSet, prevTileSet, tileSetIndex);
-   //     pianoManager.SetColorOfTilesSet(thisSet, prevTileSet, tileSetIndex);
-        pianoManager.StartMoveTileSetCoroutine(transform);
+      //  pianoManager.SetColorOfTilesSet(_thisSet, _prevTileSet, _tileSetIDIndex);
+      //  pianoManager.StartMoveTileSetCoroutine(transform);
     }
     public void ResetThisTileSet()
     {
         pianoManager.SpawnTileSet();
-        Destroy(thisSet);
+      //  Destroy(_thisSet);
         Destroy(gameObject);
 
  //       correctTileTriggered = false;
