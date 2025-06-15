@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] AudioSource _musicAudioSource;
     [SerializeField] PianoManager _pianoManager;
+    private float _normalPitch;
 
     public bool GameHasStarted;
     public bool gameIsPlaying;
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _playingCanvasUI;
     [SerializeField] List<GameObject> _strikeImages;
     [SerializeField] GameObject _endCanvasUI;
+
+    [SerializeField] GameObject _difficultyScreenUI;
+
     [SerializeField] GameObject _starfieldVFX;
     [SerializeField] GameObject _neonLines;
 
@@ -32,6 +36,45 @@ public class GameManager : MonoBehaviour
     [SerializeField] UnityEvent gameEnded;
     [SerializeField] UnityEvent gameLose;
     [SerializeField] UnityEvent gameWin;
+
+    public enum levelDifficulty
+    {
+        easy = 0,
+        medium = 1,
+        hard = 2
+    }
+    public levelDifficulty gameLevelDifficulty = levelDifficulty.easy;
+
+    private void SetLevelDifficulty(levelDifficulty difficulty)
+    {
+        gameLevelDifficulty = difficulty;
+        if(difficulty == levelDifficulty.easy)
+        {
+            _pianoManager._moveSpeed = 0.02f;
+        }
+        
+        if(difficulty == levelDifficulty.medium)
+        {
+            _pianoManager._moveSpeed = 0.04f;
+        }
+        if(difficulty == levelDifficulty.hard)
+        {
+            _pianoManager._moveSpeed = 0.06f;
+        }
+
+    }
+
+    public void toggleObjectOnOff(GameObject obj)
+    {
+        if (obj.activeSelf)
+        {
+            obj.SetActive(false);
+        }
+        else
+        {
+            obj.SetActive(true);
+        }
+    }
 
    // [SerializeField] 
 
@@ -44,8 +87,13 @@ public class GameManager : MonoBehaviour
         gameIsPlaying = true;
         GameHasStarted = true;
 
+        _strikeImages[0].SetActive(true);
+        _strikeImages[1].SetActive(true);
+        _strikeImages[2].SetActive(true);
         // play music only when game has begun
         _musicAudioSource.Play();
+
+
         _starfieldVFX.SetActive(true);
         _neonLines.SetActive(true);
 
@@ -53,38 +101,46 @@ public class GameManager : MonoBehaviour
         _playingCanvasUI.SetActive(true);
 
         _startCanvasUI.SetActive(false);
-
+        _startCanvasUI.SetActive(false);
+        _difficultyScreenUI.SetActive(false);
 
         gameStarted.Invoke();
         _pianoManager.StartPlayingGame();
 
-
-
+        SetLevelDifficulty(gameLevelDifficulty);
     }
-    public void ReloadCurrentScene()
-    {
-        // Get the name of the currently active scene
-        string currentSceneName = SceneManager.GetActiveScene().name;
 
-        // Load the scene by its name
-        SceneManager.LoadScene(currentSceneName);
-    }
     public void ResetGame()
     {
         gameScore = 0;
         numberOfStrikes = 0;
         scoreText.text = gameScore.ToString();
-
         gameIsPlaying = false;
         GameHasStarted = false;
-        ReloadCurrentScene();
+
+        _pianoManager.DestroyAllTileSets();
+
+        _starfieldVFX.SetActive(false);
+      //  _neonLines.SetActive(false);
+
+        // turning on game play screen
+        _startCanvasUI.SetActive(true);
+
+        _endCanvasUI.SetActive(false);
+        _playingCanvasUI.SetActive(false);
+
+        _strikeImages[0].SetActive(true);
+        _strikeImages[1].SetActive(true);
+        _strikeImages[2].SetActive(true);
+
+        //  ReloadCurrentScene();
 
     }
     public void IncreaseGameScore()
     {
         if (gameIsPlaying)
         {
-            gameScore += 1;
+            gameScore += 100;
             scoreText.text = gameScore.ToString();
         }
     }
@@ -112,7 +168,7 @@ public class GameManager : MonoBehaviour
 
             if (numberOfStrikes >= 3)
             {
-                SlowDownGame();
+               // SlowDownGame();
                 _strikeImages[0].SetActive(false);
                 _strikeImages[1].SetActive(false);
                 _strikeImages[2].SetActive(false);
@@ -140,13 +196,38 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         ResetGame();
+        _normalPitch = _musicAudioSource.pitch;
     }
 
+    void AdjustAudioPitch()
+    {
+            if (Mathf.Approximately(Time.timeScale, 1f))
+            {
+                _musicAudioSource.pitch = _normalPitch;
+            }
+            else
+            {
+                _musicAudioSource.pitch = Time.timeScale;
+            }
+        }
 
+    void SlowDownMoveSpeed()
+    {
+        if (Mathf.Approximately(Time.timeScale, 1f))
+        {
+            _pianoManager._moveSpeed = _pianoManager._originalMoveSpeed;
+        }
+        else
+        {
+            _pianoManager._moveSpeed = _pianoManager._moveSpeed * Time.timeScale;
+        }
+    }
 
 
     void Update()
     {
+        AdjustAudioPitch();
+        SlowDownMoveSpeed();
 
     }
 
@@ -160,9 +241,11 @@ public class GameManager : MonoBehaviour
                 StopCoroutine(timeCoroutine);
 
             if (Mathf.Approximately(Time.timeScale, 1f))
-                timeCoroutine = StartCoroutine(ChangeTimeScale(1f, 0.001f, 1f)); // Slow time over 1 second
-            else
-                timeCoroutine = StartCoroutine(ChangeTimeScale(Time.timeScale, 1f, 1f)); // Resume time over 1 second
+                timeCoroutine = StartCoroutine(ChangeTimeScale(1f, 0.001f, 0.5f)); // Slow time over 1 second
+           
+            
+            // else
+             //   timeCoroutine = StartCoroutine(ChangeTimeScale(Time.timeScale, 1f, 0.1f)); // Resume time over 1 second
         }
     }
 
@@ -179,6 +262,19 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = end;
         Debug.Log($"Time scale set to {end}.");
+        StartCoroutine(Delay(1));
+    }
+    
+    IEnumerator Delay(float duration)
+    {
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime; // Use unscaledDeltaTime to remain consistent even when time is slowed
+            yield return null;
+        }
+        timeCoroutine = StartCoroutine(ChangeTimeScale(Time.timeScale, 1f, 0.5f)); // Resume time over 1 second
     }
 
 

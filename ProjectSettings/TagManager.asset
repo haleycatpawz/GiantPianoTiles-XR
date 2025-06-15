@@ -13,7 +13,7 @@ TagManager:
   - UI
   - SECONDlAYER
   - MAINUILAYER
-  - 
+  - handsLayer
   - 
   - 
   - 
@@ -40,6 +40,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: GameSceenUILayer
+    uniqueID: 4047214733
+    locked: 0
+  - name: handRays
+    uniqueID: 2805311531
     locked: 0
   m_RenderingLayers:
   - Default

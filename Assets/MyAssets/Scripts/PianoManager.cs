@@ -22,7 +22,8 @@ public class PianoManager : MonoBehaviour
 
 
     [Header("Tile Movement")]
-    [SerializeField] float _moveSpeed = 1;
+    [SerializeField] public float _moveSpeed = 1;
+    public float _originalMoveSpeed;
     [SerializeField] Transform _startPosition;
    // vector that holds static start pos
     private Vector3 startPosition; 
@@ -53,6 +54,7 @@ public class PianoManager : MonoBehaviour
             _endPositionVector = _endPositionTransform.localPosition;
         }
 
+        _originalMoveSpeed = _moveSpeed;
        // StartPlayingGame();
     }
 
@@ -189,6 +191,8 @@ public class PianoManager : MonoBehaviour
         if (color == tileColor.white)
         {
             tileMeshRenderer.material = whiteMat;
+            // setting color to white mat
+            Debug.Log("setting color to white");
         }
         if (color == tileColor.black)
         {
@@ -244,7 +248,11 @@ public class PianoManager : MonoBehaviour
             if (tileSetComponent.correctTileTriggered == false)
             {
                 // getting the tile that is black in the set and triggering it to flash red/wrong
-                tileRow.transform.GetChild(tileSetComponent._blackTileIndexNum).GetComponent<PianoTile>().MissedTile();
+                //turning off right now
+          //  tileRow.transform.GetChild(tileSetComponent._blackTileIndexNum).GetComponent<PianoTile>().MissedTile();
+              
+                
+                
                 //    tileRow.localPosition = startPosition;
                 //  tileRow.GetComponent<TileSet>().ResetThisTileSet();
              //   Debug.Log("correct tile not triggered");
@@ -300,6 +308,20 @@ public class PianoManager : MonoBehaviour
         tileSet.GetComponent<TileSet>().ResetThisTileSet();
 
         // eventToCall.Invoke();
+    }
+
+    public void DestroyAllTileSets()
+    {
+
+       var numOfSets = _tileSetsParent.transform.childCount;
+        for (int i = 0; i < numOfSets; i++) { 
+
+            _tileSetsParent.transform.GetChild(i).gameObject.GetComponent<TileSet>().ResetThisTileSet();
+
+
+        }
+
+
     }
 
     /*IEnumerator DelayFunctionCouroutine(UnityEvent eventToCall, float timeToDelay)
